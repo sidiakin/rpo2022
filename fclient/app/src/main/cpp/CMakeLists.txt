@@ -27,9 +27,18 @@ target_include_directories(native-lib PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../libs/spdlog/spdlog/include
         )
 
+target_include_directories(native-lib PUBLIC
+        /Users/joe/Projects/rpo/libs/spdlog/spdlog/include
+        /Users/joe/Projects/rpo/libs/mbedtls/mbedtls/include
+        )
+
 add_library(spdlog STATIC IMPORTED)
 set_target_properties(spdlog PROPERTIES IMPORTED_LOCATION
         ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../libs/spdlog/build/${ANDROID_ABI}/libspdlog.a)
+
+add_library(mbedcrypto SHARED IMPORTED)
+set_target_properties(mbedcrypto PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_CURRENT_SOURCE_DIR}/../nativeLibs/${ANDROID_ABI}/libmbedcrypto.so)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -51,6 +60,7 @@ find_library( # Sets the name of the path variable.
 target_link_libraries( # Specifies the target library.
                        native-lib
                        spdlog
+                       mbedcrypto
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib} )

@@ -1,3 +1,7 @@
 spdlog/spdlog
 spdlog/build/*
 !spdlog/build/compile.sh
+mbedtls/mbedtls
+mbedtls/build/*
+!mbedtls/build/compile.sh
+
